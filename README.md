@@ -1,5 +1,5 @@
 # TEST Yii online requests webapp
-###### 2025.06.19.4
+###### 2025.06.19.5
 
 ## Requirements
 - PHP 8.2
@@ -11,11 +11,10 @@
 
 - Clone source code from GitHub
 - Run `composer install` command in yii2 directory
+- Update Composer dependencies with `composer update` command
 - Copy `.env.dist` to `yii2/.env` and modify.
 - Point your web server document root to the `web` directory of the cloned repository.
-- Create database with `php yii migrate/create create_order_table` command
 - Migrate database with `php yii migrate` command
-- Update Composer dependencies with `composer update` command
 - Update NPM dependencies with `npm install` command
 - Build assets with `npm run build` command
 - Update Webpack Encore with `npm run encore production` command
