@@ -1,0 +1,59 @@
+name: GitHub workflow
+
+# Controls when the workflow will run
+on:
+    push:
+        branches: [ "main" ]
+    #pull_request:
+        #branches: [ "main" ]
+
+    # Allows you to run this workflow manually from the Actions tab
+    workflow_dispatch:
+    
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+    # This workflow contains a single job called "build"
+    build:
+        # The type of runner that the job will run on
+        runs-on: ubuntu-latest
+        
+        # Steps represent a sequence of tasks that will be executed as part of the job
+        steps:
+            -   name: GitHub workflow
+                uses: appleboy/ssh-action@master
+                with:
+                    #ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+                    host: ${{ vars.HOST }}
+                    username: ${{ vars.SSHUSER }}
+                    password: ${{ secrets.PASSWORD }}
+                    port: ${{ vars.PORT }}
+                    script: |
+                        printf "\n\n *** change directory to the project path *** \n\n"
+                        cd ${{ vars.PATH }}
+
+                        printf "\n\n *** git status *** \n\n"
+                        git status
+
+                        printf "\n\n *** git diff *** \n\n"
+                        git diff
+                        git checkout -- composer.lock
+
+                        printf "\n\n *** git pull *** \n\n"
+                        git pull
+                        chown -R ${{ vars.USER }}:www-data ./*
+                        chown -R ${{ vars.USER }}:www-data ./.[^.]*
+
+                        printf "\n\n *** composer update *** \n\n"
+                        composer update
+
+                        printf "\n\n *** composer dump-autoload *** \n\n"
+                        composer dump-autoload -o
+
+                        chown -R ${{ vars.USER }}:www-data ./*
+                        chown -R ${{ vars.USER }}:www-data ./.[^.]*
+
+                        printf "\n\n *** migration *** \n\n"
+                        php yii migrate --interactive=0
+
+                        printf "\n\n *** git status *** \n\n"
+                        git status
