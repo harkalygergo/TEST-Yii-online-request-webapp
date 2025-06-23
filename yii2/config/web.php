@@ -53,6 +53,7 @@ $config = [
                 'admin/export/<month:\d{4}-\d{2}>' => 'admin/export',
                 'admin' => 'admin/login',
                 'admin/<action>' => 'admin/<action>',
+                'admin/register' => 'admin/register',
             ],
         ],
     ],

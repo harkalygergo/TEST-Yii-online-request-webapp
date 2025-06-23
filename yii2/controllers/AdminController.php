@@ -31,15 +31,30 @@ class AdminController extends Controller
         ];
     }
 
+    public function actionRegister()
+    {
+        $model = new \app\models\RegisterForm();
+
+        if ($model->load(Yii::$app->request->post()) && $model->register()) {
+            Yii::$app->session->setFlash('success', 'Registration successful.');
+            return $this->redirect(['login']);
+        }
+
+        return $this->render('register', [
+            'model' => $model,
+        ]);
+    }
+
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
-            return $this->redirect(['index']);
+            return $this->redirect(['export']);
         }
 
         $model = new \app\models\LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->redirect(['index']);
+            Yii::$app->session->setFlash('success', 'Login successful.');
+            return $this->redirect(['export']);
         }
 
         return $this->render('login', [
