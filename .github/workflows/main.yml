@@ -44,10 +44,10 @@ jobs:
                         chown -R ${{ vars.USER }}:www-data ./.[^.]*
                         
                         printf "\n\n *** flush cache *** \n\n"
-                        php yii/yii cache/flush-all
+                        php yii2/yii cache/flush-all --interactive=0
 
                         printf "\n\n *** migrate *** \n\n"
-                        php yii/yii migrate
+                        php yii2/yii migrate --interactive=0
 
                         printf "\n\n *** composer update *** \n\n"
                         composer update
