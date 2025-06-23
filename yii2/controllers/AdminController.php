@@ -14,7 +14,7 @@ class AdminController extends Controller
         return [
             'access' => [
                 'class' => \yii\filters\AccessControl::class,
-                'only' => ['index', 'export'],
+                'only' => ['export'],
                 'rules' => [
                     [
                         'allow' => true,
@@ -23,7 +23,7 @@ class AdminController extends Controller
                 ],
             ],
             'verbs' => [
-                'class' => VerbFilter::class,
+                'class' => \yii\filters\VerbFilter::class,
                 'actions' => [
                     'export' => ['GET', 'POST'],
                 ],
@@ -60,6 +60,12 @@ class AdminController extends Controller
         return $this->render('login', [
             'model' => $model,
         ]);
+    }
+
+    public function actionLogout()
+    {
+        Yii::$app->user->logout();
+        return $this->redirect(Yii::$app->homeUrl);
     }
 
     public function actionExport($month = null)

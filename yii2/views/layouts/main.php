@@ -54,7 +54,14 @@ AppAsset::register($this);
 
     <footer class="footer">
         <div class="container">
-            <p class="text-center">&copy; <?= date('Y') ?> Építőipari Igénykezelő Rendszer</p>
+            <p class="text-center">&copy; <?= date('Y') ?> Építőipari Igénykezelő Rendszer
+            <?php if (!Yii::$app->user->isGuest): ?>
+                | <?= Html::a('Kijelentkezés', ['/admin/logout'], ['data-method' => 'post']) ?>
+            <?php else: ?>
+                | <?= Html::a('Bejelentkezés', ['/admin/login']) ?>
+                | <?= Html::a('Regisztráció', ['/admin/register']) ?>
+            <?php endif; ?>
+            </p>
         </div>
     </footer>
 

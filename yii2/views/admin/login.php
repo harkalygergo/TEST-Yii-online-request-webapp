@@ -16,6 +16,7 @@ $this->title = 'Admin Login';
 
     <div class="form-group">
         <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+        <?= Html::a('Register', ['admin/register'], ['class' => 'btn btn-link']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
