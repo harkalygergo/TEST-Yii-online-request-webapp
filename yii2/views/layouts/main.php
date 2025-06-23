@@ -48,7 +48,7 @@ AppAsset::register($this);
         ?>
 
         <div class="container main-content">
-            <?= $content ?>
+            <?php echo $content ?>
         </div>
     </div>
 

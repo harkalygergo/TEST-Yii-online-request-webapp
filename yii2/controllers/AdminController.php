@@ -12,6 +12,16 @@ class AdminController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => \yii\filters\AccessControl::class,
+                'only' => ['index', 'export'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'], // Only authenticated users
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::class,
                 'actions' => [
@@ -19,6 +29,22 @@ class AdminController extends Controller
                 ],
             ],
         ];
+    }
+
+    public function actionLogin()
+    {
+        if (!Yii::$app->user->isGuest) {
+            return $this->redirect(['index']);
+        }
+
+        $model = new \app\models\LoginForm();
+        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            return $this->redirect(['index']);
+        }
+
+        return $this->render('login', [
+            'model' => $model,
+        ]);
     }
 
     public function actionExport($month = null)

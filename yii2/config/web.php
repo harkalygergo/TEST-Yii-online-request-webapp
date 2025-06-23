@@ -51,6 +51,8 @@ $config = [
                 'request' => 'site/request',
                 'admin/export' => 'admin/export',
                 'admin/export/<month:\d{4}-\d{2}>' => 'admin/export',
+                'admin' => 'admin/login',
+                'admin/<action>' => 'admin/<action>',
             ],
         ],
     ],
