@@ -1,5 +1,5 @@
 # TEST Yii online requests webapp
-###### 2025.06.24.3
+###### 2025.06.24.4
 
 ## Megoldások
 
@@ -32,9 +32,6 @@
 - Copy `.env.dist` to `yii2/.env` and modify.
 - Point your web server document root to the `web` directory of the cloned repository.
 - Migrate database with `php yii migrate` command
-- Update NPM dependencies with `npm install` command
-- Build assets with `npm run build` command
-- Update Webpack Encore with `npm run encore production` command
 - Run the application with `php yii serve` command
 - Access the application at `http://localhost:8080`
 - Create an `.htaccess` file in the root directory with the following content to enable URL rewriting:
