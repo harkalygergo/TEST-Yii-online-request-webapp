@@ -14,7 +14,7 @@ class AdminController extends Controller
         return [
             'access' => [
                 'class' => \yii\filters\AccessControl::class,
-                'only' => ['export'],
+                //'only' => ['export'],
                 'rules' => [
                     [
                         'allow' => true,
@@ -29,6 +29,12 @@ class AdminController extends Controller
                 ],
             ],
         ];
+    }
+
+    public function actionIndex()
+    {
+        $requests = Request::find()->all(); // Fetch all requests
+        return $this->render('index', ['requests' => $requests]);
     }
 
     public function actionRegister()

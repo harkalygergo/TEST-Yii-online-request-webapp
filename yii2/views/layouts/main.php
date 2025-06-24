@@ -41,7 +41,8 @@ AppAsset::register($this);
             'items' => [
                 ['label' => 'Főoldal', 'url' => ['/site/index']],
                 ['label' => 'Igény beküldése', 'url' => ['/site/request']],
-                ['label' => 'Export (Admin)', 'url' => ['/admin/export']],
+                ['label' => 'Admin - online lista', 'url' => ['/admin/index']],
+                ['label' => 'Admin - exportálás', 'url' => ['/admin/export']],
             ],
         ]);
         NavBar::end();
@@ -56,6 +57,7 @@ AppAsset::register($this);
         <div class="container">
             <p class="text-center">&copy; <?= date('Y') ?> Építőipari Igénykezelő Rendszer
             <?php if (!Yii::$app->user->isGuest): ?>
+                | Bejelentkezve mint: <?= Html::encode(Yii::$app->user->identity->username) ?>
                 | <?= Html::a('Kijelentkezés', ['/admin/logout'], ['data-method' => 'post']) ?>
             <?php else: ?>
                 | <?= Html::a('Bejelentkezés', ['/admin/login']) ?>

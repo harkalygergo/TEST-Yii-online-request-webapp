@@ -1,5 +1,21 @@
 # TEST Yii online requests webapp
-###### 2025.06.23.6
+###### 2025.06.24.1
+
+## Megoldások
+
+- Yii2 felhasználása
+- konfigurációs adatok kiszervezése dotenv fájlba, .env.dist példafájl
+- rendszer felállítása domain név alatt
+- fejlesztés vezetése GitHub-on
+- GitHub workflow bevezetése az automatikus szoftverkiadáshoz
+
+## Továbbfejlesztési lehetőségek
+
+- Felhasználói felület fejlesztése, dizájn
+- Validációk hozzáadása a felhasználói űrlaphoz
+- develop / release branch-ek bevezetése, a GitHub workflow-ban is
+- password salt bevezetése dotenv-en keresztül
+- bejelentkezési kísérlet számolás, kitiltás
 
 ## Requirements
 - PHP 8.2
