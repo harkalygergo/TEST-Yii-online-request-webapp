@@ -25,11 +25,26 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function setPassword($password)
     {
+        // append dotenv PASSWORD_SALT to the password before hashing
+        $passwordSalt = Yii::$app->params['PASSWORD_SALT'];
+        if (!$passwordSalt) {
+            throw new \Exception('PASSWORD_SALT is not set in params.');
+        }
+
+        if (empty($password)) {
+            throw new \InvalidArgumentException('Password cannot be empty.');
+        }
+
+        $password .= $passwordSalt; // Append the salt to the password
+
         $this->password_hash = Yii::$app->security->generatePasswordHash($password);
     }
 
     public function validatePassword($password)
     {
+        $passwordSalt = Yii::$app->params['PASSWORD_SALT'];
+        $password .= $passwordSalt; // Append the salt to the password for validation
+
         return Yii::$app->security->validatePassword($password, $this->password_hash);
     }
 

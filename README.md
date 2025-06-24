@@ -1,5 +1,5 @@
 # TEST Yii online requests webapp
-###### 2025.06.24.2
+###### 2025.06.24.3
 
 ## Megoldások
 
@@ -9,13 +9,14 @@
 - fejlesztés vezetése GitHub-on
 - GitHub workflow bevezetése az automatikus szoftverkiadáshoz
 - sikertelen bejelentkezés számolása, email superadminnak
+- password salt bevezetése dotenv-en keresztül
 
 ## Továbbfejlesztési lehetőségek
 
 - validációk hozzáadása a felhasználói űrlaphoz
 - develop / release branch-ek bevezetése, a GitHub workflow-ban is
-- password salt bevezetése dotenv-en keresztül
 - sikertelen bejelentkezések után IP tiltás
+- többnyelvűsítés megoldása
 
 ## Requirements
 - PHP 8.2
