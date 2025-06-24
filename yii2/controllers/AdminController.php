@@ -14,7 +14,7 @@ class AdminController extends Controller
         return [
             'access' => [
                 'class' => \yii\filters\AccessControl::class,
-                //'only' => ['export'],
+                'only' => ['index', 'export'],
                 'rules' => [
                     [
                         'allow' => true,
@@ -58,9 +58,27 @@ class AdminController extends Controller
         }
 
         $model = new \app\models\LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            Yii::$app->session->setFlash('success', 'Login successful.');
-            return $this->redirect(['export']);
+        $unsuccessfulAttempts = Yii::$app->session->get('unsuccessfulLoginAttempts', 0);
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->login()) {
+                Yii::$app->session->setFlash('success', 'Login successful.');
+                return $this->redirect(['export']);
+            }
+
+            // count unsuccesful login attempt and set flash with number
+            $unsuccessfulAttempts++;
+            Yii::$app->session->set('unsuccessfulLoginAttempts', $unsuccessfulAttempts);
+            Yii::$app->session->setFlash('warning', 'Login failed. Attempt #' . $unsuccessfulAttempts);
+            if ($unsuccessfulAttempts >= 3) {
+                Yii::$app->session->setFlash('danger', 'Too many unsuccessful login attempts. Please try again later.');
+                // send email to dotenv SUPERADMIN_EMAIL
+                Yii::$app->mailer->compose()
+                    ->setFrom([Yii::$app->params['SENDER_EMAIL'] => Yii::$app->params['SENDER_NAME']])
+                    ->setTo(Yii::$app->params['SUPERADMIN_EMAIL'])
+                    ->setSubject('Too many unsuccessful login attempts')
+                    ->setTextBody($model->username. " has been {$unsuccessfulAttempts} unsuccessful login attempts.")
+                    ->send();
+            }
         }
 
         return $this->render('login', [

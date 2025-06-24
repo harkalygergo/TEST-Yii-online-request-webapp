@@ -31,7 +31,10 @@ $config = [
             'class' => \yii\symfonymailer\Mailer::class,
             'viewPath' => '@app/mail',
             // send all mails to a file by default.
-            'useFileTransport' => true,
+            'useFileTransport' => false,
+            'transport' => [
+                'dsn' => $_ENV['MAILER_DSN'], // Use the DSN for your local SMTP server
+            ],
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,

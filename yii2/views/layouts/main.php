@@ -27,6 +27,13 @@ AppAsset::register($this);
     <body>
     <?php $this->beginBody() ?>
 
+    <?php foreach (Yii::$app->session->getAllFlashes() as $type => $message): ?>
+        <div class="alert alert-<?= $type ?> alert-dismissible" role="alert">
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <?= \yii\helpers\Html::encode($message) ?>
+        </div>
+    <?php endforeach; ?>
+
     <div class="wrap">
         <?php
         NavBar::begin([
